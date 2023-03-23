@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 app.use(`${baseURL}/post`, require('./routes/post.route'));
+app.use(`${baseURL}/point`, require('./routes/point.route'));
 
 
 app.listen(PORT, "0.0.0.0", () => {
