@@ -1,4 +1,4 @@
-const Point = require("../models/post.schema");
+const Point = require("../models/point.schema");
 const { BadRequestError } = require("../helpers/errors");
 
 exports.getAllPoints = async (req, res) => {
