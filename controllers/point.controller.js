@@ -1,6 +1,7 @@
 const Point = require("../models/point.schema");
 const { BadRequestError } = require("../helpers/errors");
 
+// Get all points available in the database
 exports.getAllPoints = async (req, res) => {
   try {
     const points = await Point.find();
@@ -24,6 +25,11 @@ exports.getPoint = async (req, res) => {
 
 // Create a single point validating the request body
 exports.createPoint = async (req, res) => {
+  const {title} = req.body.title;
+  const {description} = req.body.description;
+  const {lon} = req.body.lon;
+  const {lat} = req.body.lat;
+
   if (!req.body) {
     throw new BadRequestError("Point data not included in the request body.");
 }
@@ -45,7 +51,7 @@ exports.updatePoint = async (req, res) => {
     }
     
     try {
-        const updated = await Point.findOneAndUpdate({ name: id }, req.body)
+        const updated = await Point.findOneAndUpdate({"_id": id}, req.body, { new: true })
         res.status(200).json(updated);
     } catch (err) {
         console.log(err);
@@ -57,8 +63,8 @@ exports.updatePoint = async (req, res) => {
 exports.deletePoint = async (req, res) => {
     const {id} = req.params
     try {
-        const deleted = await Point.deleteOne({ name: id })
-        res.status(200).send();
+        const deleted = await Point.deleteOne({"_id": id})
+        res.status(200).json({message: "Point deleted...."});
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: err.message });
