@@ -48,7 +48,8 @@ app.use(function (req, res, next) {
 });
 
 // Routes
-app.use(`${baseURL}/post`, require("./routes/post.route"));
+app.use(`${baseURL}/post`, require('./routes/post.route'));
+app.use(`${baseURL}/point`, require('./routes/point.route'));
 app.use(`${baseURL}/auth`, require("./routes/user.route"));
 
 app.listen(PORT, "0.0.0.0", () => {
